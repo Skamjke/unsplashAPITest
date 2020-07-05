@@ -92,7 +92,7 @@ class PaperListState extends State<PaperList>{
     );
   }
 
- Future<String> _loadData () async{
+_loadData () async{
     try{
       final response = await http.get('https://api.unsplash.com/photos/random?count=30&query=${_search}&client_id=BXgkn90H5nntHy1-1zL5vxuHBynNkWmSRNpALG7UvQY');
       setState(() {
