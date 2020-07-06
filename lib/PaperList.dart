@@ -24,6 +24,7 @@ class PaperListState extends State<PaperList>{
   String urlReg;
   String _search = 'london';
   Icon searchIcon = Icon(Icons.search);
+  Icon refreshIcon = Icon(Icons.refresh);
   Widget searchText = Text('Awesome Paper', style: TextStyle(fontFamily: 'Pacifico'),);
   @override
   void initState(){
@@ -76,19 +77,29 @@ class PaperListState extends State<PaperList>{
               )
             ],
           ),
-          body: new ListView.builder(
-              itemCount: data == null?0:data.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  child: Center(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: _buildList(context,index),
+          body: Container(
+            child: new ListView.builder(
+                itemCount: data == null?0:data.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    child: Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: _buildList(context,index),
+                      ),
                     ),
-                  ),
-                );
-              }),
-        ),
+                  );
+                }),
+          ),
+          floatingActionButton: FloatingActionButton(
+            child: refreshIcon,
+            onPressed: (){
+              setState(() {
+                _loadData();
+              });
+            },
+          ),
+        )
     );
   }
 
@@ -105,7 +116,10 @@ _loadData () async{
       return 'success';
     }
 }
-List _buildList(BuildContext context, int index){
+
+
+
+_buildList(BuildContext context, int index){
     List<Widget> widgets = [];
     String desc = data[index]['description'];
     if (desc == null)
