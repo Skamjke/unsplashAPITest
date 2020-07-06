@@ -49,8 +49,8 @@ class PaperListState extends State<PaperList>{
                         onChanged: (text){
                           setState(() {
                             _search = text;
+                            _loadData();
                           });
-                          _loadData();
                           },
                         textInputAction: TextInputAction.done,
                         decoration: InputDecoration(
